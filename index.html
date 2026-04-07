@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
     <style>
         :root {
             --emerald-pine: #084734;
@@ -706,6 +707,10 @@
             display: inline-block;
             font-weight: 600;
             transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
         }
 
         .recipe-btn:hover {
@@ -984,6 +989,221 @@
         .section-content {
             opacity: 1;
         }
+
+        /* Modais de Receitas */
+        .recipe-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 31, 23, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .recipe-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .recipe-modal-content {
+            background: var(--white);
+            border-radius: 24px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .recipe-modal.active .recipe-modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .recipe-modal-header {
+            background: linear-gradient(135deg, var(--emerald-pine), var(--green-tea));
+            padding: 2rem;
+            border-radius: 24px 24px 0 0;
+            position: relative;
+        }
+
+        .recipe-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .recipe-modal-close:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: rotate(90deg);
+        }
+
+        .recipe-modal-close svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--white);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .recipe-modal-emoji {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .recipe-modal-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .recipe-modal-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .recipe-modal-meta span {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+        }
+
+        .recipe-modal-body {
+            padding: 2rem;
+        }
+
+        .recipe-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .recipe-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .recipe-section-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--emerald-pine);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .recipe-section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--lime-glow);
+            border-radius: 2px;
+        }
+
+        .recipe-ingredients {
+            list-style: none;
+        }
+
+        .recipe-ingredients li {
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed rgba(8, 71, 52, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .recipe-ingredients li::before {
+            content: '✓';
+            color: var(--emerald-pine);
+            font-weight: bold;
+        }
+
+        .recipe-steps {
+            counter-reset: step;
+            list-style: none;
+        }
+
+        .recipe-steps li {
+            padding: 1rem 0;
+            border-bottom: 1px dashed rgba(8, 71, 52, 0.1);
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .recipe-steps li::before {
+            counter-increment: step;
+            content: counter(step);
+            min-width: 28px;
+            height: 28px;
+            background: var(--lime-glow);
+            color: var(--emerald-pine);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .recipe-tips {
+            background: rgba(206, 241, 123, 0.2);
+            border-left: 4px solid var(--lime-glow);
+            padding: 1rem;
+            border-radius: 0 12px 12px 0;
+            margin-top: 1.5rem;
+        }
+
+        .recipe-tips-title {
+            font-weight: 600;
+            color: var(--emerald-pine);
+            margin-bottom: 0.5rem;
+        }
+
+        .recipe-tips-text {
+            color: var(--emerald-pine);
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 576px) {
+            .recipe-modal {
+                padding: 1rem;
+            }
+
+            .recipe-modal-content {
+                max-height: 85vh;
+            }
+
+            .recipe-modal-header {
+                padding: 1.5rem;
+            }
+
+            .recipe-modal-body {
+                padding: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1191,8 +1411,8 @@
                         <span>🔥 320kcal</span>
                         <span>💪 Alto Proteína</span>
                     </div>
-                    <p class="recipe-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.</p>
-                    <a href="#" class="recipe-btn">Ver Receita</a>
+                    <p class="recipe-description">Perfeito para o pós-treino ou almoço nutritivo. Rico em proteínas e carboidratos complexos.</p>
+                    <button class="recipe-btn" data-modal="recipe-modal-1">Ver Receita</button>
                 </div>
 
                 <div class="recipe-card animate-in delay-2">
@@ -1206,8 +1426,8 @@
                         <span>🔥 180kcal</span>
                         <span>🌱 Vegano</span>
                     </div>
-                    <p class="recipe-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-                    <a href="#" class="recipe-btn">Ver Receita</a>
+                    <p class="recipe-description">Refrescante e cheio de nutrientes. Ideal para começar o dia com energia.</p>
+                    <button class="recipe-btn" data-modal="recipe-modal-2">Ver Receita</button>
                 </div>
 
                 <div class="recipe-card animate-in delay-3">
@@ -1221,8 +1441,8 @@
                         <span>🔥 250kcal</span>
                         <span>🥣 Café da Manhã</span>
                     </div>
-                    <p class="recipe-description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
-                    <a href="#" class="recipe-btn">Ver Receita</a>
+                    <p class="recipe-description">Prepare na véspera para um café da manhã prático e saudável.</p>
+                    <button class="recipe-btn" data-modal="recipe-modal-3">Ver Receita</button>
                 </div>
 
                 <div class="recipe-card animate-in delay-4">
@@ -1236,8 +1456,8 @@
                         <span>🔥 420kcal</span>
                         <span>🐟 Omega-3</span>
                     </div>
-                    <p class="recipe-description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.</p>
-                    <a href="#" class="recipe-btn">Ver Receita</a>
+                    <p class="recipe-description">Fonte de ômega-3 e proteínas. Uma refeição completa e saborosa.</p>
+                    <button class="recipe-btn" data-modal="recipe-modal-4">Ver Receita</button>
                 </div>
             </div>
         </div>
@@ -1384,6 +1604,195 @@
         <p class="footer-copyright">© 2026 João A. M. Neto. All rights reserved.</p>
     </footer>
 
+    <!-- Modais de Receitas -->
+    <!-- Modal 1: Bowl Proteico de Frango -->
+    <div class="recipe-modal" id="recipe-modal-1">
+        <div class="recipe-modal-content">
+            <div class="recipe-modal-header">
+                <button class="recipe-modal-close" aria-label="Fechar modal">
+                    <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+                <div class="recipe-modal-emoji">🥗</div>
+                <h2 class="recipe-modal-title">Bowl Proteico de Frango</h2>
+                <div class="recipe-modal-meta">
+                    <span>⏱ 15 minutos</span>
+                    <span>🔥 320 kcal</span>
+                    <span>💪 35g proteína</span>
+                </div>
+            </div>
+            <div class="recipe-modal-body">
+                <div class="recipe-section">
+                    <h3 class="recipe-section-title">Ingredientes</h3>
+                    <ul class="recipe-ingredients">
+                        <li>200g de peito de frango grelhado em cubos</li>
+                        <li>1 xícara de quinoa cozida</li>
+                        <li>1/2 abacate em fatias</li>
+                        <li>1/2 xícara de tomate cereja cortado ao meio</li>
+                        <li>1/4 xícara de milho cozido</li>
+                        <li>Folhas de rúcula ou alface a gosto</li>
+                        <li>1 colher de sopa de azeite</li>
+                        <li>Sal, pimenta e limão a gosto</li>
+                    </ul>
+                </div>
+                <div class="recipe-section">
+                    <h3 class="recipe-section-title">Modo de Preparo</h3>
+                    <ol class="recipe-steps">
+                        <li>Tempere o frango com sal, pimenta e limão. Grelhe em uma frigideira antiaderente até dourar.</li>
+                        <li>Em uma tigela grande, monte a base com as folhas verdes e a quinoa.</li>
+                        <li>Distribua o frango, abacate, tomate e milho em seções sobre a base.</li>
+                        <li>Regue com azeite e finalize com mais limão se desejar.</li>
+                    </ol>
+                </div>
+                <div class="recipe-tips">
+                    <div class="recipe-tips-title">💡 Dica do Nutricionista</div>
+                    <div class="recipe-tips-text">Prepare o frango e a quinoa no Domingo para ter refeições prontas durante a semana. Guarde em potes herméticos por até 3 dias na geladeira.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Smoothie Verde Detox -->
+    <div class="recipe-modal" id="recipe-modal-2">
+        <div class="recipe-modal-content">
+            <div class="recipe-modal-header">
+                <button class="recipe-modal-close" aria-label="Fechar modal">
+                    <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+                <div class="recipe-modal-emoji">🥑</div>
+                <h2 class="recipe-modal-title">Smoothie Verde Detox</h2>
+                <div class="recipe-modal-meta">
+                    <span>⏱ 5 minutos</span>
+                    <span>🔥 180 kcal</span>
+                    <span>🌱 100% Vegano</span>
+                </div>
+            </div>
+            <div class="recipe-modal-body">
+                <div class="recipe-section">
+                    <h3 class="recipe-section-title">Ingredientes</h3>
+                    <ul class="recipe-ingredients">
+                        <li>1 banana congelada</li>
+                        <li>1/2 abacate</li>
+                        <li>1 xícara de espinafre fresco</li>
+                        <li>1/2 pepino com casca</li>
+                        <li>Suco de 1/2 limão</li>
+                        <li>1 colher de chá de gengibre ralado</li>
+                        <li>200ml de água de coco ou água filtrada</li>
+                        <li>Gelo a gosto</li>
+                    </ul>
+                </div>
+                <div class="recipe-section">
+                    <h3 class="recipe-section-title">Modo de Preparo</h3>
+                    <ol class="recipe-steps">
+                        <li>Descasque a banana e corte o abacate ao meio.</li>
+                        <li>Lave bem o espinafre e o pepinho.</li>
+                        <li>Coloque todos os ingredientes no liquidificador.</li>
+                        <li>Bata por 1-2 minutos até ficar cremoso e homogêneo.</li>
+                        <li>Sirva imediatamente para aproveitar todos os nutrientes.</li>
+                    </ol>
+                </div>
+                <div class="recipe-tips">
+                    <div class="recipe-tips-title">💡 Dica do Nutricionista</div>
+                    <div class="recipe-tips-text">O espinafre é uma excelente fonte de ferro. Para melhorar a absorção, sempre combine com uma fonte de vitamina C, como o limão!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Overnight de Frutas Vermelhas -->
+    <div class="recipe-modal" id="recipe-modal-3">
+        <div class="recipe-modal-content">
+            <div class="recipe-modal-header">
+                <button class="recipe-modal-close" aria-label="Fechar modal">
+                    <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+                <div class="recipe-modal-emoji">🍓</div>
+                <h2 class="recipe-modal-title">Overnight de Frutas Vermelhas</h2>
+                <div class="recipe-modal-meta">
+                    <span>⏱ 10 minutos + pernoite</span>
+                    <span>🔥 250 kcal</span>
+                    <span>🥣 Café da Manhã</span>
+                </div>
+            </div>
+            <div class="recipe-modal-body">
+                <div class="recipe-section">
+                    <h3 class="recipe-section-title">Ingredientes</h3>
+                    <ul class="recipe-ingredients">
+                        <li>1/2 xícara de aveia em flocos</li>
+                        <li>1/2 xícara de leite vegetal ou leite de sua preferência</li>
+                        <li>1/4 xícara de iogurte natural sem açúcar</li>
+                        <li>1 colher de sopa de chia</li>
+                        <li>1 colher de sopa de mel ou melado</li>
+                        <li>1/2 xícara de morangos picados</li>
+                        <li>1/4 xícara de mirtilos (ou amoras)</li>
+                        <li>Canela em pó a gosto</li>
+                    </ul>
+                </div>
+                <div class="recipe-section">
+                    <h3 class="recipe-section-title">Modo de Preparo</h3>
+                    <ol class="recipe-steps">
+                        <li>Em um pote com tampa, misture a aveia, leite, iogurte, chia e mel.</li>
+                        <li>Misture bem para a chia não ficar em grumos.</li>
+                        <li>Adicione metade das frutas e misture delicadamente.</li>
+                        <li>Tampe o pote e leve à geladeira por no mínimo 6 horas (ou durante a noite).</li>
+                        <li>Na manhã seguinte, complete com as frutas restantes e canela.</li>
+                    </ol>
+                </div>
+                <div class="recipe-tips">
+                    <div class="recipe-tips-title">💡 Dica do Nutricionista</div>
+                    <div class="recipe-tips-text">As frutas vermelhas são ricas em antioxidantes. Prepare até 3 potes de uma vez para ter um café da manhã prático e nutritivo nos dias corridos!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: Salmão com Brócolis -->
+    <div class="recipe-modal" id="recipe-modal-4">
+        <div class="recipe-modal-content">
+            <div class="recipe-modal-header">
+                <button class="recipe-modal-close" aria-label="Fechar modal">
+                    <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+                <div class="recipe-modal-emoji">🥦</div>
+                <h2 class="recipe-modal-title">Salmão com Brócolis</h2>
+                <div class="recipe-modal-meta">
+                    <span>⏱ 25 minutos</span>
+                    <span>🔥 420 kcal</span>
+                    <span>🐟 Rico em Ômega-3</span>
+                </div>
+            </div>
+            <div class="recipe-modal-body">
+                <div class="recipe-section">
+                    <h3 class="recipe-section-title">Ingredientes</h3>
+                    <ul class="recipe-ingredients">
+                        <li>1 filé de salmão (180g)</li>
+                        <li>2 xícaras de brócolis em floretes</li>
+                        <li>2 dentes de alho picados</li>
+                        <li>Suco de 1/2 limão</li>
+                        <li>1 colher de sopa de azeite</li>
+                        <li>Ervas frescas (salsa, coentro ou dill)</li>
+                        <li>Sal e pimenta-do-reino a gosto</li>
+                        <li>Papel alumínio ou papel manteiga</li>
+                    </ul>
+                </div>
+                <div class="recipe-section">
+                    <h3 class="recipe-section-title">Modo de Preparo</h3>
+                    <ol class="recipe-steps">
+                        <li>Pré-aqueça o forno a 200°C.</li>
+                        <li>Tempere o salmão com limão, sal, pimenta e alho.</li>
+                        <li>Corte um pedaço grande de papel alumínio e coloque o salmão no centro.</li>
+                        <li>Distribua o brócolis ao redor do salmão, regue com azeite.</li>
+                        <li>Feche o papel alumínio formando um pacote e leve ao forno por 20 minutos.</li>
+                        <li>Retire do forno, abra com cuidado e finalize com as ervas frescas.</li>
+                    </ol>
+                </div>
+                <div class="recipe-tips">
+                    <div class="recipe-tips-title">💡 Dica do Nutricionista</div>
+                    <div class="recipe-tips-text">O salmão é uma das melhores fontes de ômega-3, fundamental para a saúde cardiovascular e cerebral. Consuma peixes gordurosos pelo menos 2x por semana!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Navegação ativa baseada no scroll
         const sections = document.querySelectorAll('section');
@@ -1408,6 +1817,43 @@
         }
 
         window.addEventListener('scroll', updateActiveNav);
+
+        // Scroll suave customizado com easing para navegação lateral
+        document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+
+                if (targetSection) {
+                    const targetPosition = targetSection.offsetTop;
+                    const startPosition = window.pageYOffset;
+                    const distance = targetPosition - startPosition;
+                    const duration = 800; // ms - ajuste para mais lento ou mais rápido
+                    let start = null;
+
+                    // Easing function: easeInOutCubic para transição suave
+                    function easeInOutCubic(t) {
+                        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+                    }
+
+                    function animation(currentTime) {
+                        if (start === null) start = currentTime;
+                        const timeElapsed = currentTime - start;
+                        const progress = Math.min(timeElapsed / duration, 1);
+                        const ease = easeInOutCubic(progress);
+
+                        window.scrollTo(0, startPosition + distance * ease);
+
+                        if (timeElapsed < duration) {
+                            requestAnimationFrame(animation);
+                        }
+                    }
+
+                    requestAnimationFrame(animation);
+                }
+            });
+        });
 
         // Carrossel Jornada
         const jornadaTrack = document.getElementById('jornadaTrack');
@@ -1488,6 +1934,56 @@
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
             observer.observe(el);
+        });
+
+        // Modais de Receitas
+        const modalBtns = document.querySelectorAll('.recipe-btn[data-modal]');
+        const modals = document.querySelectorAll('.recipe-modal');
+        const closeBtns = document.querySelectorAll('.recipe-modal-close');
+
+        // Abrir modal
+        modalBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const modalId = btn.getAttribute('data-modal');
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        // Fechar modal ao clicar no X
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const modal = btn.closest('.recipe-modal');
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Fechar modal ao clicar fora
+        modals.forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Fechar modal com a tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                modals.forEach(modal => {
+                    if (modal.classList.contains('active')) {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
         });
     </script>
 </body>
