@@ -502,13 +502,24 @@ body {
 }
 
 .carousel-track {
-    display: flex;
-    transition: transform 0.5s ease;
+    display: grid;
+    /* transition: transform 0.5s ease; Removed to use child-based animations */
 }
 
 .carousel-card {
+    grid-area: 1 / 1;
     min-width: 100%;
     padding: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-card.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
 }
 
 .project-card {
@@ -747,7 +758,48 @@ body {
 
 @media (max-width: 768px) {
     .recipes-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1.5rem;
+        padding-bottom: 1rem;
+        width: 100%;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .recipes-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .recipe-card {
+        width: 100%;
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+    }
+}
+
+/* Navegação customizada para Receitas (Mobile) */
+.recipes-nav {
+    display: none;
+}
+.recipes-nav .carousel-btn {
+    border-color: var(--emerald-pine);
+    color: var(--emerald-pine);
+}
+.recipes-nav .carousel-btn:hover {
+    background: var(--emerald-pine);
+    color: var(--lime-glow);
+}
+.recipes-nav .dot {
+    background: rgba(8, 71, 52, 0.2);
+}
+.recipes-nav .dot.active {
+    background: var(--emerald-pine);
+}
+@media (max-width: 768px) {
+    .recipes-nav {
+        display: flex;
     }
 }
 
@@ -856,7 +908,33 @@ body {
 
 @media (max-width: 576px) {
     .contact-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .contact-grid .contact-card:nth-child(1) { order: 1; }
+    .contact-grid .contact-card:nth-child(4) { order: 2; }
+    .contact-grid .contact-card:nth-child(2) { order: 3; }
+    .contact-grid .contact-card:nth-child(3) { order: 4; }
+
+    .contact-card {
+        padding: 1.25rem 0.5rem;
+    }
+
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 0.75rem;
+    }
+
+    .contact-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .contact-value {
+        font-size: 0.8rem;
+        word-break: break-word;
     }
 }
 

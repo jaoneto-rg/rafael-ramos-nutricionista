@@ -343,6 +343,25 @@
                     <button class="recipe-btn" data-modal="recipe-modal-4">Ver Receita</button>
                 </div>
             </div>
+            
+            <div class="carousel-nav recipes-nav">
+                <button class="carousel-btn" id="prevReceita" aria-label="Receita anterior">
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                </button>
+                <div class="carousel-dots" id="receitasDots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <span class="dot" data-index="2"></span>
+                    <span class="dot" data-index="3"></span>
+                </div>
+                <button class="carousel-btn" id="nextReceita" aria-label="Próxima receita">
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </button>
+            </div>
         </div>
     </section>
 
@@ -816,34 +835,88 @@
 
         // Carrossel Jornada
         const jornadaTrack = document.getElementById('jornadaTrack');
+        const jornadaCards = document.querySelectorAll('#jornadaTrack .carousel-card');
         const jornadaDots = document.querySelectorAll('#jornadaDots .dot');
         const prevJornada = document.getElementById('prevJornada');
         const nextJornada = document.getElementById('nextJornada');
         let jornadaIndex = 0;
+        let jornadaInterval;
 
         function updateJornadaCarousel() {
-            jornadaTrack.style.transform = `translateX(-${jornadaIndex * 100}%)`;
             jornadaDots.forEach((dot, i) => {
                 dot.classList.toggle('active', i === jornadaIndex);
             });
+            jornadaCards.forEach((card, i) => {
+                card.classList.toggle('active', i === jornadaIndex);
+            });
+        }
+
+        function nextJornadaSlide() {
+            jornadaIndex = (jornadaIndex + 1) % jornadaDots.length;
+            updateJornadaCarousel();
+        }
+
+        function resetJornadaInterval() {
+            clearInterval(jornadaInterval);
+            jornadaInterval = setInterval(nextJornadaSlide, 5000);
         }
 
         prevJornada.addEventListener('click', () => {
-            jornadaIndex = (jornadaIndex - 1 + 3) % 3;
+            jornadaIndex = (jornadaIndex - 1 + jornadaDots.length) % jornadaDots.length;
             updateJornadaCarousel();
+            resetJornadaInterval();
         });
 
         nextJornada.addEventListener('click', () => {
-            jornadaIndex = (jornadaIndex + 1) % 3;
-            updateJornadaCarousel();
+            nextJornadaSlide();
+            resetJornadaInterval();
         });
 
         jornadaDots.forEach((dot, i) => {
             dot.addEventListener('click', () => {
                 jornadaIndex = i;
                 updateJornadaCarousel();
+                resetJornadaInterval();
             });
         });
+
+        // Initialize display states and auto-scroll
+        updateJornadaCarousel();
+        resetJornadaInterval();
+
+        // Carrossel Receitas (Nativo com botões)
+        const recipesGrid = document.querySelector('.recipes-grid');
+        const prevReceita = document.getElementById('prevReceita');
+        const nextReceita = document.getElementById('nextReceita');
+        const receitasDots = document.querySelectorAll('#receitasDots .dot');
+
+        if (recipesGrid && prevReceita) {
+            function getScrollStep() {
+                // Width of grid + gap (24px or 1.5rem used in CSS)
+                return recipesGrid.clientWidth + 24;
+            }
+
+            recipesGrid.addEventListener('scroll', () => {
+                const index = Math.round(recipesGrid.scrollLeft / getScrollStep());
+                receitasDots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            });
+
+            prevReceita.addEventListener('click', () => {
+                recipesGrid.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
+            });
+
+            nextReceita.addEventListener('click', () => {
+                recipesGrid.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
+            });
+
+            receitasDots.forEach((dot, i) => {
+                dot.addEventListener('click', () => {
+                    recipesGrid.scrollTo({ left: i * getScrollStep(), behavior: 'smooth' });
+                });
+            });
+        }
 
         // Carrossel Depoimentos (auto-play)
         const testimonialsTrack = document.getElementById('testimonialsTrack');
