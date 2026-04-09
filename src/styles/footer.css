@@ -21,3 +21,20 @@ footer {
         text-align: center;
     }
 }
+
+/* Responsividade adicional */
+@media screen and (max-width: 768px) {
+    #footer_itens {
+        padding: 0px 5% 20px 5%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #footer_itens {
+        padding: 0px 4% 16px 4%;
+    }
+
+    #copyright {
+        font-size: 0.9rem;
+    }
+}

@@ -76,5 +76,25 @@ header {
         list-style: none;
         text-align: center;
     }
-    
+}
+
+/* Responsividade adicional */
+@media screen and (max-width: 768px) {
+    header {
+        padding: 20px 5%;
+    }
+
+    #nav_logo {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header {
+        padding: 16px 4%;
+    }
+
+    #nav_logo {
+        font-size: 18px;
+    }
 }

@@ -1,1236 +1,62 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Rafael Ramos | Nutricionista</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/styles.css">
-    <style>
-        :root {
-            --emerald-pine: #084734;
-            --lime-glow: #CEF17B;
-            --green-tea: #CDEDB3;
-            --deep-dark: #021f17;
-            --white: #ffffff;
-            --font-display: 'Playfair Display', serif;
-            --font-body: 'DM Sans', sans-serif;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-body);
-            color: var(--emerald-pine);
-            background-color: var(--green-tea);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Navegação Lateral */
-        .side-nav {
-            position: fixed;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            padding: 1rem 0.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .nav-item {
-            position: relative;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--emerald-pine);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            text-decoration: none;
-        }
-
-        .nav-item:hover {
-            background: var(--lime-glow);
-            transform: scale(1.1);
-        }
-
-        .nav-item.active {
-            border-color: var(--lime-glow);
-            background: var(--emerald-pine);
-        }
-
-        .nav-item.active svg {
-            stroke: var(--lime-glow);
-        }
-
-        .nav-item svg {
-            width: 24px;
-            height: 24px;
-            stroke: var(--white);
-            fill: none;
-            stroke-width: 2;
-            transition: stroke 0.3s ease;
-        }
-
-        .nav-item:hover svg {
-            stroke: var(--emerald-pine);
-        }
-
-        .nav-tooltip {
-            position: absolute;
-            right: 60px;
-            background: var(--emerald-pine);
-            color: var(--white);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateX(10px);
-            transition: all 0.3s ease;
-        }
-
-        .nav-tooltip::after {
-            content: '';
-            position: absolute;
-            right: -6px;
-            top: 50%;
-            transform: translateY(-50%);
-            border-width: 6px 0 6px 6px;
-            border-style: solid;
-            border-color: transparent transparent transparent var(--emerald-pine);
-        }
-
-        .nav-item:hover .nav-tooltip {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(0);
-        }
-
-        /* Mobile Navigation */
-        @media (max-width: 768px) {
-            .side-nav {
-                position: fixed;
-                right: 0;
-                left: 0;
-                bottom: 0;
-                top: auto;
-                transform: none;
-                flex-direction: row;
-                justify-content: space-around;
-                background: var(--emerald-pine);
-                padding: 0.5rem;
-                border-radius: 20px 20px 0 0;
-            }
-
-            .nav-item {
-                width: 45px;
-                height: 45px;
-                background: transparent;
-            }
-
-            .nav-item:hover {
-                background: rgba(206, 241, 123, 0.2);
-            }
-
-            .nav-tooltip {
-                display: none;
-            }
-
-            section {
-                padding-bottom: 80px;
-            }
-        }
-
-        /* Animações */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-in {
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-
-        /* Seção Hero */
-        #home {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, var(--emerald-pine) 0%, var(--green-tea) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        #home::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: 0.05;
-            pointer-events: none;
-        }
-
-        .hero-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-image-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .hero-image {
-            width: 400px;
-            height: 500px;
-            background: linear-gradient(135deg, var(--lime-glow), var(--green-tea));
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 25px 50px -12px rgba(8, 71, 52, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-image svg {
-            width: 150px;
-            height: 150px;
-            stroke: var(--emerald-pine);
-            opacity: 0.6;
-        }
-
-        .hero-content {
-            color: var(--white);
-        }
-
-        .badge {
-            display: inline-block;
-            background: var(--lime-glow);
-            color: var(--emerald-pine);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-title {
-            font-family: var(--font-display);
-            font-size: 3.5rem;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-            max-width: 500px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background: var(--lime-glow);
-            color: var(--emerald-pine);
-        }
-
-        .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(206, 241, 123, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid var(--white);
-        }
-
-        .btn-secondary:hover {
-            background: var(--white);
-            color: var(--emerald-pine);
-        }
-
-        /* Responsive Hero */
-        @media (max-width: 992px) {
-            .hero-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .hero-image {
-                width: 280px;
-                height: 350px;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-        }
-
-        /* Seção Sobre */
-        #sobre {
-            padding: 6rem 2rem;
-            background: var(--green-tea);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            color: var(--emerald-pine);
-            margin-bottom: 1rem;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 4rem;
-            align-items: start;
-        }
-
-        .about-image-wrapper {
-            position: relative;
-        }
-
-        .about-image {
-            width: 100%;
-            max-width: 400px;
-            aspect-ratio: 3/4;
-            background: linear-gradient(135deg, var(--lime-glow), var(--green-tea));
-            border-radius: 20px;
-            border: 4px solid var(--emerald-pine);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: rotate(-3deg);
-            box-shadow: 0 20px 40px rgba(8, 71, 52, 0.2);
-        }
-
-        .about-image svg {
-            width: 100px;
-            height: 100px;
-            stroke: var(--emerald-pine);
-            opacity: 0.5;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .info-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-        }
-
-        .info-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--emerald-pine);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .info-icon svg {
-            width: 20px;
-            height: 20px;
-            stroke: var(--lime-glow);
-        }
-
-        .info-text strong {
-            display: block;
-            color: var(--emerald-pine);
-            font-size: 0.85rem;
-        }
-
-        .info-text span {
-            color: var(--emerald-pine);
-            opacity: 0.8;
-            font-size: 0.95rem;
-        }
-
-        .divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--emerald-pine), transparent);
-            margin: 2rem 0;
-            opacity: 0.3;
-        }
-
-        .about-text {
-            color: var(--emerald-pine);
-            opacity: 0.85;
-            line-height: 1.8;
-            font-size: 1.05rem;
-        }
-
-        @media (max-width: 992px) {
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .about-image-wrapper {
-                display: flex;
-                justify-content: center;
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Seção Jornada */
-        #jornada {
-            padding: 6rem 2rem;
-            background: var(--emerald-pine);
-        }
-
-        #jornada .section-title {
-            color: var(--lime-glow);
-            text-align: center;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--white);
-            opacity: 0.8;
-            margin-bottom: 3rem;
-        }
-
-        .carousel-container {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-
-        .carousel-card {
-            min-width: 100%;
-            padding: 1rem;
-        }
-
-        .project-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .project-image {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(135deg, var(--lime-glow), var(--green-tea));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            color: var(--emerald-pine);
-        }
-
-        .project-content {
-            padding: 2rem;
-        }
-
-        .project-tags {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            background: rgba(255, 255, 255, 0.15);
-            color: var(--white);
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .project-title {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            color: var(--white);
-            margin-bottom: 0.75rem;
-        }
-
-        .project-description {
-            color: var(--white);
-            opacity: 0.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-link {
-            color: var(--lime-glow);
-            text-decoration: none;
-            border: 1px solid var(--lime-glow);
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            display: inline-block;
-            transition: all 0.3s ease;
-        }
-
-        .project-link:hover {
-            background: var(--lime-glow);
-            color: var(--emerald-pine);
-        }
-
-        .carousel-nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .carousel-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid var(--lime-glow);
-            background: transparent;
-            color: var(--lime-glow);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .carousel-btn:hover {
-            background: var(--lime-glow);
-            color: var(--emerald-pine);
-        }
-
-        .carousel-btn svg {
-            width: 24px;
-            height: 24px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-        }
-
-        .carousel-dots {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(206, 241, 123, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .dot.active {
-            background: var(--lime-glow);
-        }
-
-        /* Seção Receitas */
-        #receitas {
-            padding: 6rem 2rem;
-            background: var(--lime-glow);
-        }
-
-        #receitas .section-title {
-            text-align: center;
-        }
-
-        #receitas .section-subtitle {
-            color: var(--emerald-pine);
-            opacity: 0.7;
-        }
-
-        .recipes-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .recipe-card {
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(8, 71, 52, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .recipe-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 40px rgba(8, 71, 52, 0.15);
-        }
-
-        .recipe-emoji {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .recipe-image {
-            width: 100%;
-            height: 150px;
-            background: linear-gradient(135deg, var(--green-tea), var(--white));
-            border-radius: 15px;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .recipe-image svg {
-            width: 50px;
-            height: 50px;
-            stroke: var(--emerald-pine);
-            opacity: 0.4;
-        }
-
-        .recipe-title {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            color: var(--emerald-pine);
-            margin-bottom: 0.75rem;
-        }
-
-        .recipe-meta {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .recipe-meta span {
-            font-size: 0.85rem;
-            color: var(--emerald-pine);
-            opacity: 0.7;
-        }
-
-        .recipe-description {
-            color: var(--emerald-pine);
-            opacity: 0.7;
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .recipe-btn {
-            background: var(--emerald-pine);
-            color: var(--lime-glow);
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            display: inline-block;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 1rem;
-        }
-
-        .recipe-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(8, 71, 52, 0.3);
-        }
-
-        @media (max-width: 768px) {
-            .recipes-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Seção Contato */
-        #contato {
-            padding: 6rem 2rem;
-            background: var(--green-tea);
-        }
-
-        #contato .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            max-width: 1100px;
-            margin: 0 auto 3rem;
-        }
-
-        .contact-card {
-            background: var(--emerald-pine);
-            border-radius: 20px;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(8, 71, 52, 0.3);
-        }
-
-        .contact-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(206, 241, 123, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-        }
-
-        .contact-icon svg {
-            width: 28px;
-            height: 28px;
-            stroke: var(--lime-glow);
-            fill: none;
-            stroke-width: 2;
-        }
-
-        .contact-label {
-            color: var(--lime-glow);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-value {
-            color: var(--white);
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
-
-        .whatsapp-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            background: #25D366;
-            color: var(--white);
-            padding: 1.25rem 3rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin: 0 auto;
-            width: fit-content;
-            transition: all 0.3s ease;
-        }
-
-        .whatsapp-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
-        }
-
-        .whatsapp-btn svg {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
-        }
-
-        @media (max-width: 992px) {
-            .contact-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 576px) {
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Seção Depoimentos */
-        #depoimentos {
-            padding: 6rem 2rem;
-            background: var(--emerald-pine);
-        }
-
-        #depoimentos .section-title {
-            color: var(--lime-glow);
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .testimonials-carousel {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .testimonials-track {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-
-        .testimonial-card {
-            min-width: 100%;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .quote-icon {
-            font-size: 4rem;
-            color: var(--lime-glow);
-            line-height: 1;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-
-        .testimonial-text {
-            color: var(--white);
-            font-size: 1.2rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            font-style: italic;
-        }
-
-        .testimonial-avatar {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--lime-glow), var(--green-tea));
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .testimonial-avatar svg {
-            width: 40px;
-            height: 40px;
-            stroke: var(--emerald-pine);
-        }
-
-        .testimonial-name {
-            color: var(--lime-glow);
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .testimonial-role {
-            color: var(--white);
-            opacity: 0.7;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .stars {
-            color: var(--lime-glow);
-            font-size: 1.2rem;
-        }
-
-        .testimonial-dots {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 2rem;
-        }
-
-        /* Footer */
-        #footer {
-            background: var(--deep-dark);
-            padding: 4rem 2rem 2rem;
-            text-align: center;
-        }
-
-        .footer-brand {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            color: var(--white);
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-tagline {
-            color: var(--lime-glow);
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-divider {
-            height: 1px;
-            background: rgba(206, 241, 123, 0.2);
-            margin: 2rem auto;
-            max-width: 600px;
-        }
-
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .social-link {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(206, 241, 123, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: var(--lime-glow);
-            transform: translateY(-3px);
-        }
-
-        .social-link svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--lime-glow);
-            transition: fill 0.3s ease;
-        }
-
-        .social-link:hover svg {
-            fill: var(--emerald-pine);
-        }
-
-        .footer-copyright {
-            color: var(--white);
-            opacity: 0.6;
-            font-size: 0.9rem;
-        }
-
-        /* Visibility for scroll animations */
-        .section-content {
-            opacity: 1;
-        }
-
-        /* Modais de Receitas */
-        .recipe-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(2, 31, 23, 0.9);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .recipe-modal.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .recipe-modal-content {
-            background: var(--white);
-            border-radius: 24px;
-            max-width: 600px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            transform: translateY(30px) scale(0.95);
-            transition: transform 0.3s ease;
-        }
-
-        .recipe-modal.active .recipe-modal-content {
-            transform: translateY(0) scale(1);
-        }
-
-        .recipe-modal-header {
-            background: linear-gradient(135deg, var(--emerald-pine), var(--green-tea));
-            padding: 2rem;
-            border-radius: 24px 24px 0 0;
-            position: relative;
-        }
-
-        .recipe-modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .recipe-modal-close:hover {
-            background: rgba(255, 255, 255, 0.4);
-            transform: rotate(90deg);
-        }
-
-        .recipe-modal-close svg {
-            width: 24px;
-            height: 24px;
-            stroke: var(--white);
-            fill: none;
-            stroke-width: 2;
-        }
-
-        .recipe-modal-emoji {
-            font-size: 4rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .recipe-modal-title {
-            font-family: var(--font-display);
-            font-size: 1.8rem;
-            color: var(--white);
-            margin-bottom: 0.5rem;
-        }
-
-        .recipe-modal-meta {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .recipe-modal-meta span {
-            background: rgba(255, 255, 255, 0.2);
-            color: var(--white);
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-        }
-
-        .recipe-modal-body {
-            padding: 2rem;
-        }
-
-        .recipe-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .recipe-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .recipe-section-title {
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-            color: var(--emerald-pine);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .recipe-section-title::before {
-            content: '';
-            width: 4px;
-            height: 20px;
-            background: var(--lime-glow);
-            border-radius: 2px;
-        }
-
-        .recipe-ingredients {
-            list-style: none;
-        }
-
-        .recipe-ingredients li {
-            padding: 0.5rem 0;
-            border-bottom: 1px dashed rgba(8, 71, 52, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .recipe-ingredients li::before {
-            content: '✓';
-            color: var(--emerald-pine);
-            font-weight: bold;
-        }
-
-        .recipe-steps {
-            counter-reset: step;
-            list-style: none;
-        }
-
-        .recipe-steps li {
-            padding: 1rem 0;
-            border-bottom: 1px dashed rgba(8, 71, 52, 0.1);
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-        }
-
-        .recipe-steps li::before {
-            counter-increment: step;
-            content: counter(step);
-            min-width: 28px;
-            height: 28px;
-            background: var(--lime-glow);
-            color: var(--emerald-pine);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            font-weight: 600;
-            flex-shrink: 0;
-        }
-
-        .recipe-tips {
-            background: rgba(206, 241, 123, 0.2);
-            border-left: 4px solid var(--lime-glow);
-            padding: 1rem;
-            border-radius: 0 12px 12px 0;
-            margin-top: 1.5rem;
-        }
-
-        .recipe-tips-title {
-            font-weight: 600;
-            color: var(--emerald-pine);
-            margin-bottom: 0.5rem;
-        }
-
-        .recipe-tips-text {
-            color: var(--emerald-pine);
-            opacity: 0.8;
-            font-size: 0.95rem;
-        }
-
-        @media (max-width: 576px) {
-            .recipe-modal {
-                padding: 1rem;
-            }
-
-            .recipe-modal-content {
-                max-height: 85vh;
-            }
-
-            .recipe-modal-header {
-                padding: 1.5rem;
-            }
-
-            .recipe-modal-body {
-                padding: 1.5rem;
-            }
-        }
-    </style>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/src/styles/styles.css">
 </head>
+
 <body>
     <!-- Navegação Lateral -->
     <nav class="side-nav" aria-label="Navegação principal">
         <a href="#home" class="nav-item active" aria-label="Home" data-section="home">
-            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <svg viewBox="0 0 24 24">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
             <span class="nav-tooltip">Home</span>
         </a>
         <a href="#sobre" class="nav-item" aria-label="Sobre" data-section="sobre">
-            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <svg viewBox="0 0 24 24">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+            </svg>
             <span class="nav-tooltip">Sobre</span>
         </a>
         <a href="#jornada" class="nav-item" aria-label="Jornada" data-section="jornada">
-            <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <svg viewBox="0 0 24 24">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+            </svg>
             <span class="nav-tooltip">Jornada</span>
         </a>
         <a href="#receitas" class="nav-item" aria-label="Receitas" data-section="receitas">
-            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8z"/><path d="M12 6a6 6 0 0 0-6 6c0 3.314 2.686 6 6 6s6-2.686 6-6a6 6 0 0 0-6-6zm0 10a4 4 0 0 1-4-4 4 4 0 0 1 4-4 4 4 0 0 1 4 4 4 4 0 0 1-4 4z"/></svg>
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8z" />
+                <path
+                    d="M12 6a6 6 0 0 0-6 6c0 3.314 2.686 6 6 6s6-2.686 6-6a6 6 0 0 0-6-6zm0 10a4 4 0 0 1-4-4 4 4 0 0 1 4-4 4 4 0 0 1 4 4 4 4 0 0 1-4 4z" />
+            </svg>
             <span class="nav-tooltip">Receitas</span>
         </a>
         <a href="#contato" class="nav-item" aria-label="Contato" data-section="contato">
-            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <svg viewBox="0 0 24 24">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+            </svg>
             <span class="nav-tooltip">Contato</span>
         </a>
         <a href="#depoimentos" class="nav-item" aria-label="Depoimentos" data-section="depoimentos">
-            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+            </svg>
             <span class="nav-tooltip">Depoimentos</span>
         </a>
     </nav>
@@ -1240,13 +66,18 @@
         <div class="hero-container">
             <div class="hero-image-wrapper animate-in">
                 <div class="hero-image">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
                 </div>
             </div>
             <div class="hero-content">
                 <span class="badge animate-in delay-1">NUTRICIONISTA CRN-X</span>
-                <h1 class="hero-title animate-in delay-2">Transforme sua saúde com quem realmente entende do assunto.</h1>
-                <p class="hero-subtitle animate-in delay-3">Rafael Ramos — Nutrição clínica, esportiva e funcional. Consultas presenciais e online.</p>
+                <h1 class="hero-title animate-in delay-2">Transforme sua saúde com quem realmente entende do assunto.
+                </h1>
+                <p class="hero-subtitle animate-in delay-3">Rafael Ramos — Nutrição clínica e funcional. Consultas
+                    presenciais e online.</p>
                 <div class="hero-buttons animate-in delay-4">
                     <a href="#contato" class="btn btn-primary">Agendar Consulta</a>
                     <a href="#sobre" class="btn btn-secondary">Saiba Mais</a>
@@ -1261,7 +92,10 @@
             <div class="about-grid">
                 <div class="about-image-wrapper">
                     <div class="about-image animate-in">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
                     </div>
                 </div>
                 <div class="about-content">
@@ -1269,7 +103,12 @@
                     <div class="info-grid">
                         <div class="info-item animate-in delay-1">
                             <div class="info-icon">
-                                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                <svg viewBox="0 0 24 24">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                    <line x1="16" y1="2" x2="16" y2="6" />
+                                    <line x1="8" y1="2" x2="8" y2="6" />
+                                    <line x1="3" y1="10" x2="21" y2="10" />
+                                </svg>
                             </div>
                             <div class="info-text">
                                 <strong>Idade</strong>
@@ -1278,16 +117,10 @@
                         </div>
                         <div class="info-item animate-in delay-1">
                             <div class="info-icon">
-                                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.56 12.56 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.56 12.56 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                            </div>
-                            <div class="info-text">
-                                <strong>Telefone</strong>
-                                <span>(82) 99999-9999</span>
-                            </div>
-                        </div>
-                        <div class="info-item animate-in delay-2">
-                            <div class="info-icon">
-                                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
                             </div>
                             <div class="info-text">
                                 <strong>Cidade</strong>
@@ -1296,7 +129,23 @@
                         </div>
                         <div class="info-item animate-in delay-2">
                             <div class="info-icon">
-                                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.56 12.56 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.56 12.56 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                                </svg>
+                            </div>
+                            <div class="info-text">
+                                <strong>Telefone</strong>
+                                <span>(82) 99999-9999</span>
+                            </div>
+                        </div>
+                        <div class="info-item animate-in delay-2">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                    <polyline points="22,6 12,13 2,6" />
+                                </svg>
                             </div>
                             <div class="info-text">
                                 <strong>Email</strong>
@@ -1305,17 +154,26 @@
                         </div>
                         <div class="info-item animate-in delay-3" style="grid-column: span 2;">
                             <div class="info-icon">
-                                <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                                    <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                                </svg>
                             </div>
                             <div class="info-text">
                                 <strong>Formação</strong>
-                                <span>Nutrição — Universidade X (2022); Pós-graduação em Nutrição Esportiva — Instituto Y (2024)</span>
+                                <span>Nutrição — Universidade X (2022); Pós-graduação em Nutrição Esportiva — Instituto
+                                    Y (2024)</span>
                             </div>
                         </div>
                     </div>
                     <div class="divider"></div>
                     <p class="about-text animate-in delay-4">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis
+                        unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
                     </p>
                 </div>
             </div>
@@ -1326,7 +184,8 @@
     <section id="jornada">
         <div class="container">
             <h2 class="section-title animate-in">Minha Jornada</h2>
-            <p class="section-subtitle animate-in delay-1">Projetos de extensão universitária, estágios e experiências que moldaram minha trajetória.</p>
+            <p class="section-subtitle animate-in delay-1">Projetos de extensão universitária, estágios e experiências
+                que moldaram minha trajetória.</p>
 
             <div class="carousel-container">
                 <div class="carousel-track" id="jornadaTrack">
@@ -1340,7 +199,9 @@
                                     <span class="tag">2023</span>
                                 </div>
                                 <h3 class="project-title">Projeto de Educação Nutricional</h3>
-                                <p class="project-description">Iniciativa de extensão universitária focada em educação alimentar para comunidades carentes, promovendo hábitos saudáveis e prevenção de doenças.</p>
+                                <p class="project-description">Iniciativa de extensão universitária focada em educação
+                                    alimentar para comunidades carentes, promovendo hábitos saudáveis e prevenção de
+                                    doenças.</p>
                                 <a href="#" class="project-link">Ver Mais</a>
                             </div>
                         </div>
@@ -1355,7 +216,9 @@
                                     <span class="tag">2022</span>
                                 </div>
                                 <h3 class="project-title">Estágio em Nutrição Esportiva</h3>
-                                <p class="project-description">Experiência prática em assessoria nutricional para atletas de alto rendimento, planejamento de períodos de competição e recuperação.</p>
+                                <p class="project-description">Experiência prática em assessoria nutricional para
+                                    atletas de alto rendimento, planejamento de períodos de competição e recuperação.
+                                </p>
                                 <a href="#" class="project-link">Ver Mais</a>
                             </div>
                         </div>
@@ -1370,7 +233,8 @@
                                     <span class="tag">2024</span>
                                 </div>
                                 <h3 class="project-title">Pesquisa em Nutrição Funcional</h3>
-                                <p class="project-description">Estudo sobre o impacto de bioativos alimentares na saúde metabólica, com publicação em revista científica nacional.</p>
+                                <p class="project-description">Estudo sobre o impacto de bioativos alimentares na saúde
+                                    metabólica, com publicação em revista científica nacional.</p>
                                 <a href="#" class="project-link">Ver Mais</a>
                             </div>
                         </div>
@@ -1378,7 +242,9 @@
                 </div>
                 <div class="carousel-nav">
                     <button class="carousel-btn" id="prevJornada" aria-label="Projeto anterior">
-                        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="15 18 9 12 15 6" />
+                        </svg>
                     </button>
                     <div class="carousel-dots" id="jornadaDots">
                         <span class="dot active" data-index="0"></span>
@@ -1386,7 +252,9 @@
                         <span class="dot" data-index="2"></span>
                     </div>
                     <button class="carousel-btn" id="nextJornada" aria-label="Próximo projeto">
-                        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="9 18 15 12 9 6" />
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -1397,13 +265,17 @@
     <section id="receitas">
         <div class="container">
             <h2 class="section-title animate-in">Receitas Favoritas</h2>
-            <p class="section-subtitle animate-in delay-1">Combinações nutritivas que funcionam para (quase) qualquer perfil.</p>
+            <p class="section-subtitle animate-in delay-1">Combinações nutritivas que funcionam para (quase) qualquer
+                perfil.</p>
 
             <div class="recipes-grid">
                 <div class="recipe-card animate-in delay-1">
                     <div class="recipe-emoji">🥗</div>
                     <div class="recipe-image">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M6 12h12"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 6v12M6 12h12" />
+                        </svg>
                     </div>
                     <h3 class="recipe-title">Bowl Proteico de Frango</h3>
                     <div class="recipe-meta">
@@ -1411,14 +283,18 @@
                         <span>🔥 320kcal</span>
                         <span>💪 Alto Proteína</span>
                     </div>
-                    <p class="recipe-description">Perfeito para o pós-treino ou almoço nutritivo. Rico em proteínas e carboidratos complexos.</p>
+                    <p class="recipe-description">Perfeito para o pós-treino ou almoço nutritivo. Rico em proteínas e
+                        carboidratos complexos.</p>
                     <button class="recipe-btn" data-modal="recipe-modal-1">Ver Receita</button>
                 </div>
 
                 <div class="recipe-card animate-in delay-2">
                     <div class="recipe-emoji">🥑</div>
                     <div class="recipe-image">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M6 12h12"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 6v12M6 12h12" />
+                        </svg>
                     </div>
                     <h3 class="recipe-title">Smoothie Verde Detox</h3>
                     <div class="recipe-meta">
@@ -1426,14 +302,18 @@
                         <span>🔥 180kcal</span>
                         <span>🌱 Vegano</span>
                     </div>
-                    <p class="recipe-description">Refrescante e cheio de nutrientes. Ideal para começar o dia com energia.</p>
+                    <p class="recipe-description">Refrescante e cheio de nutrientes. Ideal para começar o dia com
+                        energia.</p>
                     <button class="recipe-btn" data-modal="recipe-modal-2">Ver Receita</button>
                 </div>
 
                 <div class="recipe-card animate-in delay-3">
                     <div class="recipe-emoji">🍓</div>
                     <div class="recipe-image">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M6 12h12"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 6v12M6 12h12" />
+                        </svg>
                     </div>
                     <h3 class="recipe-title">Overnight de Frutas Vermelhas</h3>
                     <div class="recipe-meta">
@@ -1448,7 +328,10 @@
                 <div class="recipe-card animate-in delay-4">
                     <div class="recipe-emoji">🥦</div>
                     <div class="recipe-image">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M6 12h12"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 6v12M6 12h12" />
+                        </svg>
                     </div>
                     <h3 class="recipe-title">Salmão com Brócolis</h3>
                     <div class="recipe-meta">
@@ -1471,7 +354,10 @@
             <div class="contact-grid">
                 <div class="contact-card animate-in delay-1">
                     <div class="contact-icon">
-                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
                     </div>
                     <div class="contact-label">Localização</div>
                     <div class="contact-value">Maceió, Alagoas — Brasil</div>
@@ -1479,7 +365,10 @@
 
                 <div class="contact-card animate-in delay-2">
                     <div class="contact-icon">
-                        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.56 12.56 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.56 12.56 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.56 12.56 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.56 12.56 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                        </svg>
                     </div>
                     <div class="contact-label">Telefone</div>
                     <div class="contact-value">(82) 99999-9999</div>
@@ -1487,7 +376,10 @@
 
                 <div class="contact-card animate-in delay-3">
                     <div class="contact-icon">
-                        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                            <polyline points="22,6 12,13 2,6" />
+                        </svg>
                     </div>
                     <div class="contact-label">Email</div>
                     <div class="contact-value">rafael@email.com</div>
@@ -1495,7 +387,11 @@
 
                 <div class="contact-card animate-in delay-4">
                     <div class="contact-icon">
-                        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                        </svg>
                     </div>
                     <div class="contact-label">Redes Sociais</div>
                     <div class="contact-value">@rafaelramos.nutri</div>
@@ -1503,7 +399,10 @@
             </div>
 
             <a href="https://wa.me/5582999999999" class="whatsapp-btn animate-in" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                </svg>
                 Agendar pelo WhatsApp
             </a>
         </div>
@@ -1518,9 +417,13 @@
                 <div class="testimonials-track" id="testimonialsTrack">
                     <div class="testimonial-card">
                         <div class="quote-icon">"</div>
-                        <p class="testimonial-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                        <p class="testimonial-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                         <div class="testimonial-avatar">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
                         </div>
                         <div class="testimonial-name">Maria S.</div>
                         <div class="testimonial-role">Paciente há 2 anos</div>
@@ -1529,9 +432,13 @@
 
                     <div class="testimonial-card">
                         <div class="quote-icon">"</div>
-                        <p class="testimonial-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+                        <p class="testimonial-text">Duis aute irure dolor in reprehenderit in voluptate velit esse
+                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
                         <div class="testimonial-avatar">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
                         </div>
                         <div class="testimonial-name">João P.</div>
                         <div class="testimonial-role">Atleta amador</div>
@@ -1540,9 +447,13 @@
 
                     <div class="testimonial-card">
                         <div class="quote-icon">"</div>
-                        <p class="testimonial-text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore.</p>
+                        <p class="testimonial-text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                            accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore.</p>
                         <div class="testimonial-avatar">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
                         </div>
                         <div class="testimonial-name">Ana C.</div>
                         <div class="testimonial-role">Empresária</div>
@@ -1551,9 +462,13 @@
 
                     <div class="testimonial-card">
                         <div class="quote-icon">"</div>
-                        <p class="testimonial-text">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                        <p class="testimonial-text">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+                            fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
                         <div class="testimonial-avatar">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
                         </div>
                         <div class="testimonial-name">Carlos M.</div>
                         <div class="testimonial-role">Paciente há 6 meses</div>
@@ -1562,9 +477,13 @@
 
                     <div class="testimonial-card">
                         <div class="quote-icon">"</div>
-                        <p class="testimonial-text">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore.</p>
+                        <p class="testimonial-text">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
+                            consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore.</p>
                         <div class="testimonial-avatar">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
                         </div>
                         <div class="testimonial-name">Fernanda R.</div>
                         <div class="testimonial-role">Nutricionista em formação</div>
@@ -1591,13 +510,23 @@
 
         <div class="footer-social">
             <a href="#" class="social-link" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                <svg viewBox="0 0 24 24">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                    <rect x="2" y="9" width="4" height="12" />
+                    <circle cx="4" cy="4" r="2" />
+                </svg>
             </a>
             <a href="#" class="social-link" aria-label="GitHub">
-                <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                </svg>
             </a>
             <a href="mailto:contato@rafaelramos.nutri" class="social-link" aria-label="Email">
-                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                </svg>
             </a>
         </div>
 
@@ -1610,7 +539,9 @@
         <div class="recipe-modal-content">
             <div class="recipe-modal-header">
                 <button class="recipe-modal-close" aria-label="Fechar modal">
-                    <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
                 </button>
                 <div class="recipe-modal-emoji">🥗</div>
                 <h2 class="recipe-modal-title">Bowl Proteico de Frango</h2>
@@ -1637,7 +568,8 @@
                 <div class="recipe-section">
                     <h3 class="recipe-section-title">Modo de Preparo</h3>
                     <ol class="recipe-steps">
-                        <li>Tempere o frango com sal, pimenta e limão. Grelhe em uma frigideira antiaderente até dourar.</li>
+                        <li>Tempere o frango com sal, pimenta e limão. Grelhe em uma frigideira antiaderente até dourar.
+                        </li>
                         <li>Em uma tigela grande, monte a base com as folhas verdes e a quinoa.</li>
                         <li>Distribua o frango, abacate, tomate e milho em seções sobre a base.</li>
                         <li>Regue com azeite e finalize com mais limão se desejar.</li>
@@ -1645,7 +577,8 @@
                 </div>
                 <div class="recipe-tips">
                     <div class="recipe-tips-title">💡 Dica do Nutricionista</div>
-                    <div class="recipe-tips-text">Prepare o frango e a quinoa no Domingo para ter refeições prontas durante a semana. Guarde em potes herméticos por até 3 dias na geladeira.</div>
+                    <div class="recipe-tips-text">Prepare o frango e a quinoa no Domingo para ter refeições prontas
+                        durante a semana. Guarde em potes herméticos por até 3 dias na geladeira.</div>
                 </div>
             </div>
         </div>
@@ -1656,7 +589,9 @@
         <div class="recipe-modal-content">
             <div class="recipe-modal-header">
                 <button class="recipe-modal-close" aria-label="Fechar modal">
-                    <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
                 </button>
                 <div class="recipe-modal-emoji">🥑</div>
                 <h2 class="recipe-modal-title">Smoothie Verde Detox</h2>
@@ -1692,7 +627,8 @@
                 </div>
                 <div class="recipe-tips">
                     <div class="recipe-tips-title">💡 Dica do Nutricionista</div>
-                    <div class="recipe-tips-text">O espinafre é uma excelente fonte de ferro. Para melhorar a absorção, sempre combine com uma fonte de vitamina C, como o limão!</div>
+                    <div class="recipe-tips-text">O espinafre é uma excelente fonte de ferro. Para melhorar a absorção,
+                        sempre combine com uma fonte de vitamina C, como o limão!</div>
                 </div>
             </div>
         </div>
@@ -1703,7 +639,9 @@
         <div class="recipe-modal-content">
             <div class="recipe-modal-header">
                 <button class="recipe-modal-close" aria-label="Fechar modal">
-                    <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
                 </button>
                 <div class="recipe-modal-emoji">🍓</div>
                 <h2 class="recipe-modal-title">Overnight de Frutas Vermelhas</h2>
@@ -1739,7 +677,8 @@
                 </div>
                 <div class="recipe-tips">
                     <div class="recipe-tips-title">💡 Dica do Nutricionista</div>
-                    <div class="recipe-tips-text">As frutas vermelhas são ricas em antioxidantes. Prepare até 3 potes de uma vez para ter um café da manhã prático e nutritivo nos dias corridos!</div>
+                    <div class="recipe-tips-text">As frutas vermelhas são ricas em antioxidantes. Prepare até 3 potes de
+                        uma vez para ter um café da manhã prático e nutritivo nos dias corridos!</div>
                 </div>
             </div>
         </div>
@@ -1750,7 +689,9 @@
         <div class="recipe-modal-content">
             <div class="recipe-modal-header">
                 <button class="recipe-modal-close" aria-label="Fechar modal">
-                    <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
                 </button>
                 <div class="recipe-modal-emoji">🥦</div>
                 <h2 class="recipe-modal-title">Salmão com Brócolis</h2>
@@ -1787,7 +728,8 @@
                 </div>
                 <div class="recipe-tips">
                     <div class="recipe-tips-title">💡 Dica do Nutricionista</div>
-                    <div class="recipe-tips-text">O salmão é uma das melhores fontes de ômega-3, fundamental para a saúde cardiovascular e cerebral. Consuma peixes gordurosos pelo menos 2x por semana!</div>
+                    <div class="recipe-tips-text">O salmão é uma das melhores fontes de ômega-3, fundamental para a
+                        saúde cardiovascular e cerebral. Consuma peixes gordurosos pelo menos 2x por semana!</div>
                 </div>
             </div>
         </div>
@@ -1818,41 +760,58 @@
 
         window.addEventListener('scroll', updateActiveNav);
 
-        // Scroll suave customizado com easing para navegação lateral
+        // Scroll suave customizado com easing para navegação lateral e botões internos
+        function smoothScrollTo(targetId) {
+            const targetSection = document.querySelector(targetId);
+
+            if (targetSection) {
+                const targetPosition = targetSection.offsetTop;
+                const startPosition = window.pageYOffset;
+                const distance = targetPosition - startPosition;
+                const duration = 800; // ms - ajuste para mais lento ou mais rápido
+                let start = null;
+
+                // Easing function: easeInOutCubic para transição suave
+                function easeInOutCubic(t) {
+                    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+                }
+
+                function animation(currentTime) {
+                    if (start === null) start = currentTime;
+                    const timeElapsed = currentTime - start;
+                    const progress = Math.min(timeElapsed / duration, 1);
+                    const ease = easeInOutCubic(progress);
+
+                    window.scrollTo(0, startPosition + distance * ease);
+
+                    if (timeElapsed < duration) {
+                        requestAnimationFrame(animation);
+                    }
+                }
+
+                requestAnimationFrame(animation);
+            }
+        }
+
+        // Navegação lateral
         document.querySelectorAll('.nav-item').forEach(link => {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-
-                if (targetSection) {
-                    const targetPosition = targetSection.offsetTop;
-                    const startPosition = window.pageYOffset;
-                    const distance = targetPosition - startPosition;
-                    const duration = 800; // ms - ajuste para mais lento ou mais rápido
-                    let start = null;
-
-                    // Easing function: easeInOutCubic para transição suave
-                    function easeInOutCubic(t) {
-                        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-                    }
-
-                    function animation(currentTime) {
-                        if (start === null) start = currentTime;
-                        const timeElapsed = currentTime - start;
-                        const progress = Math.min(timeElapsed / duration, 1);
-                        const ease = easeInOutCubic(progress);
-
-                        window.scrollTo(0, startPosition + distance * ease);
-
-                        if (timeElapsed < duration) {
-                            requestAnimationFrame(animation);
-                        }
-                    }
-
-                    requestAnimationFrame(animation);
-                }
+                smoothScrollTo(targetId);
             });
+        });
+
+        // Botões internos de navegação (Agendar Consulta, Saiba Mais, etc)
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            // Pula os já tratados (.nav-item) e modais
+            if (!link.classList.contains('nav-item') && !link.hasAttribute('data-modal')) {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    smoothScrollTo(targetId);
+                });
+            }
         });
 
         // Carrossel Jornada
@@ -1987,4 +946,5 @@
         });
     </script>
 </body>
+
 </html>

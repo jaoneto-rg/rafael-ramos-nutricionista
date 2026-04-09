@@ -83,7 +83,7 @@
         text-align: center;
     }
 
-    
+
     #testimonials_content {
         width: 100%;
     }
@@ -91,5 +91,48 @@
     .feedback {
         flex-direction: column;
         text-align: center;
+    }
+}
+
+/* Responsividade adicional */
+@media screen and (max-width: 768px) {
+    #testimonials {
+        min-height: auto;
+        padding: 60px 20px;
+    }
+
+    #testimonials .section-subtitle {
+        font-size: 1.75rem;
+    }
+
+    .feedback-avatar {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #testimonials {
+        padding: 40px 16px;
+    }
+
+    #testimonials .section-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .feedback-avatar {
+        width: 60px;
+        height: 60px;
+    }
+
+    .feedback {
+        padding: 10px;
+        gap: 12px;
+    }
+
+    #feedbacks {
+        gap: 16px;
+        margin-top: 20px;
+        margin-bottom: 30px;
     }
 }
